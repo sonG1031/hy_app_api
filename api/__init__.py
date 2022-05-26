@@ -20,8 +20,8 @@ def create_app():
 
     #namespace
     from .route.auth import auth
+    from .route.post import post
     api.add_namespace(auth, '/auth')
-
-
+    api.add_namespace(post, '/post')
 
     return app

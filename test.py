@@ -1,11 +1,5 @@
-# import requests
-#
-# BASE="http://127.0.0.1:5000/auth/login/"
-#
-# user = {
-#     "user_id":"minsuㅁㄴb",
-#     "password":"minsub2005"
-# }
-# res = requests.post(BASE, data=user)
-# print(res.json())
-#
+import bcrypt
+
+password = bcrypt.hashpw('password'.encode("utf-8"), bcrypt.gensalt())
+print(bcrypt.checkpw("password".encode("utf-8"), password))
+print(password.decode("UTF-8"))
