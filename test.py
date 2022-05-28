@@ -1,5 +1,4 @@
-import bcrypt
+import requests
 
-password = bcrypt.hashpw('password'.encode("utf-8"), bcrypt.gensalt())
-print(bcrypt.checkpw("password".encode("utf-8"), password))
-print(password.decode("UTF-8"))
+res = requests.get("http://127.0.0.1:5000/post/jobnotice/")
+print(res.json())

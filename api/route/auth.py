@@ -1,4 +1,4 @@
-from flask import request, jsonify, Response
+from flask import request, jsonify, Response, json
 from flask_restx import Resource, Namespace, abort
 
 from api import db
@@ -6,27 +6,10 @@ from api.models import User
 
 import bcrypt, jwt
 from config import JWT_SECRET_KEY
+from functools import wraps
+from datetime import datetime
 
 auth = Namespace('auth')
-
-@auth.route('')
-class CheckToken(Resource):
-    def post(self):
-        token = request.headers.get('authorization')
-
-        if token is not None:
-            try:
-                payload = jwt.decode(token, JWT_SECRET_KEY, "HS256")
-            except jwt.InvalidTokenError:
-                payload = None
-            if payload is not None:
-                return # 추가될 예정.
-            else:
-                abort(401, message="토큰 검증에 실패하셨습니다.")
-        else:
-            abort(401, message="토큰 검증에 실패하셨습니다.")
-
-
 
 @auth.route('/signup/')
 class Signup(Resource):
@@ -38,7 +21,9 @@ class Signup(Resource):
             email = request.json['email']
             user = User(username=username,
                         password=password,
-                        email=email)
+                        email=email,
+                        created= datetime.now(),
+                        updated= datetime.now())
 
             db.session.add(user)
             db.session.commit()
@@ -64,7 +49,46 @@ class Login(Resource):
                 "password": user.password.decode("utf-8")
             }
             token = jwt.encode(payload, JWT_SECRET_KEY, algorithm="HS256")
-            response = Response()
+            body = json.dumps({
+                "code": 1,
+                "msg": "로그인에 성공하셨습니다.",
+                "data": {
+                    "id" : user.id,
+                    "username" : user.username,
+                    "password": user.password.decode("utf-8"),
+                    "email": user.email,
+                    "created" : user.created.strftime('%Y-%m-%d'),
+                    "updated" : user.updated.strftime('%Y-%m-%d')
+                }
+            }, ensure_ascii=False)
+
+            response = Response(body)
             response.headers['authorization'] = token
             return response
-        abort(403, message=error)
+        return jsonify({
+            "code": -1,
+            "msg": error,
+            "data": {}
+        })
+
+
+# 토큰 검증을 위한 함수들
+def check_token(token):
+    try:
+        payload = jwt.decode(token, JWT_SECRET_KEY, "HS256")
+    except jwt.InvalidTokenError:
+        payload = None
+    return payload
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwagrs):
+        token = request.headers.get('authorization')
+        if token is not None:
+            payload = check_token(token)
+            if payload is None:
+                abort(401, message="토큰 검증에 실패하셨습니다.")
+        else:
+            abort(401, message="토큰 검증에 실패하셨습니다.")
+        return f(*args, **kwagrs)
+    return decorated_function
