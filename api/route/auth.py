@@ -46,11 +46,9 @@ class Login(Resource):
     def post(self):
         error = None
         user = User.query.filter_by(username=request.json['username']).first()
-        print(request.json['password'].encode("utf-8"))
-        print(user.password)
         if not user:
             error = "존재하지 않는 사용자입니다."
-        elif not bcrypt.checkpw(request.json['password'].encode("utf-8"), user.password):
+        elif not bcrypt.checkpw(request.json['password'].encode("utf-8"), user.password.encode("utf-8")):
             error = "비밀번호가 올바르지 않습니다."
         if error is None:
             payload = {
