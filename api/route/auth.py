@@ -14,6 +14,7 @@ auth = Namespace('auth')
 @auth.route('/signup/')
 class Signup(Resource):
     def post(self):
+        print(request.json)
         user = User.query.filter((User.username==request.json["username"])|(User.email==request.json['email'])).first()
         if not user:
             username = request.json['username']
@@ -29,12 +30,16 @@ class Signup(Resource):
             db.session.commit()
 
             return jsonify({
-                'code': 1
+                'code': 1,
+                'msg' : "회원가입 성공!",
+                'data':{}
             })
         else:
             return jsonify({
-                'code': -1
-            }), 409
+                'code': -1,
+                'msg': "회원가입 실패!",
+                'data': {}
+            })
 
 @auth.route('/login/')
 class Login(Resource):
