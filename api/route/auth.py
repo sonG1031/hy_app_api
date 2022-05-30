@@ -34,7 +34,7 @@ class Signup(Resource):
         else:
             return jsonify({
                 'code': -1
-            })
+            }), 409
 
 @auth.route('/login/')
 class Login(Resource):

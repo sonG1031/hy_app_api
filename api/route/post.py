@@ -1,5 +1,5 @@
-from flask import request, jsonify, Response
-from flask_restx import Resource, Namespace, abort
+from flask import request, jsonify
+from flask_restx import Resource, Namespace
 from api.models import JobNotice, JobOpen, JobHunt
 from api.route.auth import login_required
 from api import db
