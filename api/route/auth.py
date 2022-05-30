@@ -29,11 +29,11 @@ class Signup(Resource):
             db.session.commit()
 
             return jsonify({
-                'code': 1
+                'code': "1"
             })
         else:
             return jsonify({
-                'code': -1
+                'code': "-1"
             })
 
 @auth.route('/login/')
