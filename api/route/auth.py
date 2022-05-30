@@ -29,10 +29,12 @@ class Signup(Resource):
             db.session.commit()
 
             return jsonify({
-                'message': "회원가입에 성공하셨습니다."
+                'code': 1
             })
         else:
-            abort(409, message="이미 존재하는 사용자입니다.")
+            return jsonify({
+                'code': -1
+            })
 
 @auth.route('/login/')
 class Login(Resource):
@@ -49,6 +51,7 @@ class Login(Resource):
                 "password": user.password.decode("utf-8")
             }
             token = jwt.encode(payload, JWT_SECRET_KEY, algorithm="HS256")
+            print(token)
             body = json.dumps({
                 "code": 1,
                 "msg": "로그인에 성공하셨습니다.",

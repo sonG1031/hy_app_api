@@ -1,5 +1,2 @@
-# post = JobHunt(title="구직게시판 테스트1", content="좋다 좋아", create_date=datetime.now(), update_date=datetime.now(), user_name="홍길동")
-post1 = JobHunt(title="구직게시판 테스트1", content="좋다 좋아", create_date=datetime.now(), update_date=datetime.now(), user_name="홍길동")
-post2 = JobHunt(title="구직게시판 테스트2", content="좋다 좋아", create_date=datetime.now(), update_date=datetime.now(), user_name="송민섭섭")
-
-
+a = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6Ilx1YzFhMVx1YmJmY1x1YzEyZFx1YzEyZCIsInBhc3N3b3JkIjoiJDJiJDEyJGpFQURUdlQveC5pcjZGUUFYNHMuQ2V5cnhVMXFxLnZPa3JQVE5EMkJnd0QzYjJxS0o2UGdDIn0.esfwbpMz8yDq0qVIlIOFwlbqEKPAMbznwUKUbyf5gS8"
+b = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6Ilx1YzFhMVx1YmJmY1x1YzEyZFx1YzEyZCIsInBhc3N3b3JkIjoiJDJiJDEyJGpFQURUdlQveC5pcjZGUUFYNHMuQ2V5cnhVMXFxLnZPa3JQVE5EMkJnd0QzYjJxS0o2UGdDIn0.esfwbpMz8yDq0qVIlIOFwlbqEKPAMbznwUKUbyf5gS8"
