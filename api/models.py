@@ -15,7 +15,7 @@ class JobNotice(db.Model): # 취업게시글
     create_date = db.Column(db.DateTime(), nullable=False)
     update_date = db.Column(db.DateTime(), nullable=False)
     user_name = db.Column(db.String(150), db.ForeignKey('user.username', ondelete='CASCADE'), nullable=False)
-    user = db.relationship("User", backref=db.backref("job_notice_set"))
+    user = db.relationship("User", backref=db.backref("job_notice_set", cascade='all, delete-orphan'))
 
 class JobOpen(db.Model): # 구인게시글
     id = db.Column(db.Integer, primary_key=True)
@@ -24,7 +24,7 @@ class JobOpen(db.Model): # 구인게시글
     create_date = db.Column(db.DateTime(), nullable=False)
     update_date = db.Column(db.DateTime(), nullable=False)
     user_name = db.Column(db.String(150), db.ForeignKey('user.username', ondelete='CASCADE'), nullable=False)
-    user = db.relationship("User", backref=db.backref("job_open_set"))
+    user = db.relationship("User", backref=db.backref("job_open_set", cascade='all, delete-orphan'))
 
 class JobHunt(db.Model): # 구직게시글
     id = db.Column(db.Integer, primary_key=True)
@@ -33,4 +33,4 @@ class JobHunt(db.Model): # 구직게시글
     create_date = db.Column(db.DateTime(), nullable=False)
     update_date = db.Column(db.DateTime(), nullable=False)
     user_name = db.Column(db.String(150), db.ForeignKey('user.username', ondelete='CASCADE'), nullable=False)
-    user = db.relationship("User", backref=db.backref("job_hunt_set"))
+    user = db.relationship("User", backref=db.backref("job_hunt_set", cascade='all, delete-orphan'))
