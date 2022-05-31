@@ -51,7 +51,7 @@ class Login(Resource):
         print(type(request.json['password']))
         if not user:
             error = "존재하지 않는 사용자입니다."
-        elif not bcrypt.checkpw(request.json['password'], user.password):
+        elif not bcrypt.checkpw(request.json['password'].encode('utf-8'), user.password.encode('utf-8')):
             error = "비밀번호가 올바르지 않습니다."
         if error is None:
             payload = {
