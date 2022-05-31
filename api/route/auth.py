@@ -47,8 +47,8 @@ class Login(Resource):
     def post(self):
         error = None
         user = User.query.filter_by(username=request.json['username']).first()
-        print("user pw : "+ user.password)
-        print("req pw : "+ request.json['password'])
+        print("user pw : "+ type(user.password))
+        print("req pw : "+ type(request.json['password']))
         if not user:
             error = "존재하지 않는 사용자입니다."
         elif not bcrypt.checkpw(request.json['password'], user.password):
