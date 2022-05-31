@@ -56,7 +56,7 @@ class Login(Resource):
         if error is None:
             payload = {
                 "username": user.username,
-                "password": user.password.decode("utf-8")
+                "password": user.password
             }
             token = jwt.encode(payload, JWT_SECRET_KEY, algorithm="HS256")
             print(token)
@@ -66,7 +66,7 @@ class Login(Resource):
                 "data": {
                     "id" : user.id,
                     "username" : user.username,
-                    "password": user.password.decode("utf-8"),
+                    "password": user.password,
                     "email": user.email,
                     "created" : user.created.strftime('%Y-%m-%d'),
                     "updated" : user.updated.strftime('%Y-%m-%d')

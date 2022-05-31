@@ -43,7 +43,7 @@ class _JobNotice(Resource):
                 "user" : {
                     "id" : job_notice.user.id,
                     "username" : job_notice.user.username,
-                    "password" : job_notice.user.password.decode("utf-8"),
+                    "password" : job_notice.user.password,
                     "email" : job_notice.user.email,
                     "created" : job_notice.user.created.strftime('%Y-%m-%d'),
                     "updated" : job_notice.user.updated.strftime('%Y-%m-%d')
@@ -91,7 +91,7 @@ class JobNoDetail(Resource):
                 "user" : {
                     "id" : job_notice.user.id,
                     "username" : job_notice.user.username,
-                    "password" : job_notice.user.password.decode("utf-8"),
+                    "password" : job_notice.user.password,
                     "created" : job_notice.user.created.strftime('%Y-%m-%d'),
                     "updated" : job_notice.user.updated.strftime('%Y-%m-%d')
                 },
@@ -148,7 +148,7 @@ class _JobOpen(Resource):
                 "user": {
                     "id": job_open.user.id,
                     "username": job_open.user.username,
-                    "password": job_open.user.password.decode("utf-8"),
+                    "password": job_open.user.password,
                     "email": job_open.user.email,
                     "created": job_open.user.created.strftime('%Y-%m-%d'),
                     "updated": job_open.user.updated.strftime('%Y-%m-%d')
@@ -196,7 +196,7 @@ class JobOpDetail(Resource):
                 "user": {
                     "id": job_open.user.id,
                     "username": job_open.user.username,
-                    "password": job_open.user.password.decode("utf-8"),
+                    "password": job_open.user.password,
                     "created": job_open.user.created.strftime('%Y-%m-%d'),
                     "updated": job_open.user.updated.strftime('%Y-%m-%d')
                 },
@@ -253,7 +253,7 @@ class _JobHunt(Resource):
                 "user": {
                     "id": job_hunt.user.id,
                     "username": job_hunt.user.username,
-                    "password": job_hunt.user.password.decode("utf-8"),
+                    "password": job_hunt.user.password,
                     "email": job_hunt.user.email,
                     "created": job_hunt.user.created.strftime('%Y-%m-%d'),
                     "updated": job_hunt.user.updated.strftime('%Y-%m-%d')
@@ -301,7 +301,7 @@ class JobHuntDetail(Resource):
                 "user": {
                     "id": job_hunt.user.id,
                     "username": job_hunt.user.username,
-                    "password": job_hunt.user.password.decode("utf-8"),
+                    "password": job_hunt.user.password,
                     "created": job_hunt.user.created.strftime('%Y-%m-%d'),
                     "updated": job_hunt.user.updated.strftime('%Y-%m-%d')
                 },
@@ -335,7 +335,7 @@ def get_infoList(info_list):
                 "user": {
                     "id": info.user.id,
                     "username": info.user.username,
-                    "password": info.user.password.decode("UTF-8"),
+                    "password": info.user.password,
                     "email": info.user.email,
                     "created": info.user.created.strftime('%Y-%m-%d'),
                     "updated": info.user.updated.strftime('%Y-%m-%d')
@@ -353,7 +353,7 @@ def get_info(info):
         "user": {
             "id": info.user.id,
             "username": info.user.username,
-            "password": info.user.password.decode("UTF-8"),
+            "password": info.user.password,
             "email": info.user.email,
             "created": info.user.created.strftime('%Y-%m-%d'),
             "updated": info.user.updated.strftime('%Y-%m-%d')
