@@ -19,10 +19,10 @@ class Signup(Resource):
         if not user:
             username = request.json['username']
             password = bcrypt.hashpw(request.json['password'].encode("utf-8"), bcrypt.gensalt())
-            print(password)
+            print(type(password))
             email = request.json['email']
             user = User(username=username,
-                        password=password,
+                        password=password.decode('utf-8'),
                         email=email,
                         created= datetime.now(),
                         updated= datetime.now())
