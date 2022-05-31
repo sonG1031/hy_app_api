@@ -19,6 +19,7 @@ class Signup(Resource):
         if not user:
             username = request.json['username']
             password = bcrypt.hashpw(request.json['password'].encode("utf-8"), bcrypt.gensalt())
+            print(password)
             email = request.json['email']
             user = User(username=username,
                         password=password,
@@ -46,9 +47,11 @@ class Login(Resource):
     def post(self):
         error = None
         user = User.query.filter_by(username=request.json['username']).first()
+        print("user pw : "+ user.password)
+        print("req pw : "+ request.json['password'])
         if not user:
             error = "존재하지 않는 사용자입니다."
-        elif not bcrypt.checkpw(request.json['password'], user.password.decode("utf-8")):
+        elif not bcrypt.checkpw(request.json['password'], user.password):
             error = "비밀번호가 올바르지 않습니다."
         if error is None:
             payload = {
