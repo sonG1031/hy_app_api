@@ -14,12 +14,10 @@ auth = Namespace('auth')
 @auth.route('/signup/')
 class Signup(Resource):
     def post(self):
-        print(request.json)
         user = User.query.filter((User.username==request.json["username"])|(User.email==request.json['email'])).first()
         if not user:
             username = request.json['username']
             password = bcrypt.hashpw(request.json['password'].encode("utf-8"), bcrypt.gensalt())
-            print(type(password))
             email = request.json['email']
             user = User(username=username,
                         password=password.decode('utf-8'),
@@ -78,7 +76,7 @@ class Login(Resource):
         return jsonify({
             "code": -1,
             "msg": error,
-            "data": "null"
+            "data": {}
         })
 
 
