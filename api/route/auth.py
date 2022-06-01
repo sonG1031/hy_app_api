@@ -78,7 +78,7 @@ class Login(Resource):
         return jsonify({
             "code": -1,
             "msg": error,
-            "data": {}
+            "data": "null"
         })
 
 
