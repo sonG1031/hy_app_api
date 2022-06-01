@@ -21,7 +21,7 @@ class _JobNotice(Resource):
             code = -1
         else:
             lst = get_infoList(jobNotice_list)
-
+        db.session.remove()
         return jsonify({
             "code" : code,
             "msg" : "취업게시판 목록 불러오기 완료",
@@ -33,26 +33,13 @@ class _JobNotice(Resource):
                                update_date=datetime.now(), user_name=request.json['username'])
         db.session.add(job_notice)
         db.session.commit()
-        db.session.close()
 
+        data = get_info(job_notice)
+        db.session.remove()
         return jsonify({
             "code" : 1,
             "msg" : "글쓰기완료",
-            "data" : {
-                "id" : job_notice.id,
-                "title" : job_notice.title,
-                "content" : job_notice.content,
-                "user" : {
-                    "id" : job_notice.user.id,
-                    "username" : job_notice.user.username,
-                    "password" : job_notice.user.password,
-                    "email" : job_notice.user.email,
-                    "created" : job_notice.user.created.strftime('%Y-%m-%d'),
-                    "updated" : job_notice.user.updated.strftime('%Y-%m-%d')
-                },
-                "created" : job_notice.create_date.strftime('%Y-%m-%d'),
-                "updated" : job_notice.update_date.strftime('%Y-%m-%d')
-            }
+            "data" : data
         })
 
 
@@ -68,7 +55,7 @@ class JobNoDetail(Resource):
             code = -1
         else:
             data = get_info(job_notice)
-
+        db.session.remove()
         return jsonify({
             "code": code,
             "msg": "취업게시판 상세보기 완료",
@@ -82,24 +69,13 @@ class JobNoDetail(Resource):
         job_notice.content = request.json["content"]
         job_notice.update_date = datetime.now()
 
+        data = get_info(job_notice)
         db.session.commit()
+        db.session.remove()
         return jsonify({
             "code" : 1,
             "msg" : "수정하기완료",
-            "data" : {
-                "id" : job_notice.id,
-                "title" : job_notice.title,
-                "content" : job_notice.content,
-                "user" : {
-                    "id" : job_notice.user.id,
-                    "username" : job_notice.user.username,
-                    "password" : job_notice.user.password,
-                    "created" : job_notice.user.created.strftime('%Y-%m-%d'),
-                    "updated" : job_notice.user.updated.strftime('%Y-%m-%d')
-                },
-                "created" : job_notice.create_date.strftime('%Y-%m-%d'),
-                "updated" : job_notice.update_date.strftime('%Y-%m-%d')
-            }
+            "data" : data
         })
 
     @login_required
@@ -107,7 +83,7 @@ class JobNoDetail(Resource):
         job_notice = JobNotice.query.get_or_404(id)
         db.session.delete(job_notice)
         db.session.commit()
-        db.session.close()
+        db.session.remove()
 
         return jsonify({
             "code" : 1,
@@ -129,7 +105,7 @@ class _JobOpen(Resource):
             code = -1
         else:
             lst = get_infoList(jobOpen_list)
-
+        db.session.remove()
         return jsonify({
             "code" : code,
             "msg" : "구인게시판 목록 불러오기 완료",
@@ -142,26 +118,12 @@ class _JobOpen(Resource):
                                update_date=datetime.now(), user_name=request.json['username'])
         db.session.add(job_open)
         db.session.commit()
-        db.session.close()
-
+        data = get_info(job_open)
+        db.session.remove()
         return jsonify({
             "code": 1,
             "msg": "글쓰기완료",
-            "data": {
-                "id": job_open.id,
-                "title": job_open.title,
-                "content": job_open.content,
-                "user": {
-                    "id": job_open.user.id,
-                    "username": job_open.user.username,
-                    "password": job_open.user.password,
-                    "email": job_open.user.email,
-                    "created": job_open.user.created.strftime('%Y-%m-%d'),
-                    "updated": job_open.user.updated.strftime('%Y-%m-%d')
-                },
-                "created": job_open.create_date.strftime('%Y-%m-%d'),
-                "updated": job_open.update_date.strftime('%Y-%m-%d')
-            }
+            "data": data
         })
 
 
@@ -177,7 +139,7 @@ class JobOpDetail(Resource):
             code = -1
         else:
             data = get_info(job_open)
-
+        db.session.remove()
         return jsonify({
             "code": code,
             "msg": "구인게시판 상세보기 완료",
@@ -192,25 +154,12 @@ class JobOpDetail(Resource):
         job_open.update_date = datetime.now()
 
         db.session.commit()
-        db.session.close()
-
+        data = get_info(job_open)
+        db.session.remove()
         return jsonify({
             "code": 1,
             "msg": "수정하기완료",
-            "data": {
-                "id": job_open.id,
-                "title": job_open.title,
-                "content": job_open.content,
-                "user": {
-                    "id": job_open.user.id,
-                    "username": job_open.user.username,
-                    "password": job_open.user.password,
-                    "created": job_open.user.created.strftime('%Y-%m-%d'),
-                    "updated": job_open.user.updated.strftime('%Y-%m-%d')
-                },
-                "created": job_open.create_date.strftime('%Y-%m-%d'),
-                "updated": job_open.update_date.strftime('%Y-%m-%d')
-            }
+            "data": data
         })
 
     @login_required
@@ -218,8 +167,7 @@ class JobOpDetail(Resource):
         job_open = JobOpen.query.get_or_404(id)
         db.session.delete(job_open)
         db.session.commit()
-        db.session.close()
-
+        db.session.remove()
         return jsonify({
             "code" : 1,
             "msg" : "삭제하기완료",
@@ -240,7 +188,7 @@ class _JobHunt(Resource):
             code = -1
         else:
             lst = get_infoList(jobHunt_list)
-
+        db.session.remove()
         return jsonify({
             "code" : code,
             "msg" : "구직게시판 목록 불러오기 완료",
@@ -253,26 +201,13 @@ class _JobHunt(Resource):
                            update_date=datetime.now(), user_name=request.json['username'])
         db.session.add(job_hunt)
         db.session.commit()
-        db.session.close()
 
+        data = get_info(job_hunt)
+        db.session.remove()
         return jsonify({
             "code": 1,
             "msg": "글쓰기완료",
-            "data": {
-                "id": job_hunt.id,
-                "title": job_hunt.title,
-                "content": job_hunt.content,
-                "user": {
-                    "id": job_hunt.user.id,
-                    "username": job_hunt.user.username,
-                    "password": job_hunt.user.password,
-                    "email": job_hunt.user.email,
-                    "created": job_hunt.user.created.strftime('%Y-%m-%d'),
-                    "updated": job_hunt.user.updated.strftime('%Y-%m-%d')
-                },
-                "created": job_hunt.create_date.strftime('%Y-%m-%d'),
-                "updated": job_hunt.update_date.strftime('%Y-%m-%d')
-            }
+            "data": data
         })
 
 
@@ -288,7 +223,7 @@ class JobHuntDetail(Resource):
             code = -1
         else:
             data = get_info(job_hunt)
-
+        db.session.remove()
         return jsonify({
             "code": code,
             "msg": "구직게시판 상세보기 완료",
@@ -303,25 +238,12 @@ class JobHuntDetail(Resource):
         job_hunt.update_date = datetime.now()
 
         db.session.commit()
-        db.session.close()
-
+        data = get_info(job_hunt)
+        db.session.remove()
         return jsonify({
             "code": 1,
             "msg": "수정하기완료",
-            "data": {
-                "id": job_hunt.id,
-                "title": job_hunt.title,
-                "content": job_hunt.content,
-                "user": {
-                    "id": job_hunt.user.id,
-                    "username": job_hunt.user.username,
-                    "password": job_hunt.user.password,
-                    "created": job_hunt.user.created.strftime('%Y-%m-%d'),
-                    "updated": job_hunt.user.updated.strftime('%Y-%m-%d')
-                },
-                "created": job_hunt.create_date.strftime('%Y-%m-%d'),
-                "updated": job_hunt.update_date.strftime('%Y-%m-%d')
-            }
+            "data": data
         })
 
     @login_required
@@ -329,8 +251,7 @@ class JobHuntDetail(Resource):
         job_hunt = JobHunt.query.get_or_404(id)
         db.session.delete(job_hunt)
         db.session.commit()
-        db.session.close()
-
+        db.session.remove()
         return jsonify({
             "code" : 1,
             "msg" : "삭제하기완료",

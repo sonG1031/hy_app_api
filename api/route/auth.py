@@ -29,7 +29,7 @@ class Signup(Resource):
 
             db.session.add(user)
             db.session.commit()
-            db.session.close()
+            db.session.remove()
             return jsonify({
                 'code': 1,
                 'msg' : "회원가입 성공!",
@@ -71,7 +71,7 @@ class Login(Resource):
                     "updated" : user.updated.strftime('%Y-%m-%d')
                 }
             }, ensure_ascii=False)
-
+            db.session.remove()
             response = Response(body)
             response.headers['authorization'] = token
             return response
