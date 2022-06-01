@@ -33,6 +33,8 @@ class _JobNotice(Resource):
                                update_date=datetime.now(), user_name=request.json['username'])
         db.session.add(job_notice)
         db.session.commit()
+        db.session.close()
+
         return jsonify({
             "code" : 1,
             "msg" : "글쓰기완료",
@@ -105,6 +107,8 @@ class JobNoDetail(Resource):
         job_notice = JobNotice.query.get_or_404(id)
         db.session.delete(job_notice)
         db.session.commit()
+        db.session.close()
+
         return jsonify({
             "code" : 1,
             "msg" : "삭제하기완료",
@@ -138,6 +142,8 @@ class _JobOpen(Resource):
                                update_date=datetime.now(), user_name=request.json['username'])
         db.session.add(job_open)
         db.session.commit()
+        db.session.close()
+
         return jsonify({
             "code": 1,
             "msg": "글쓰기완료",
@@ -186,6 +192,8 @@ class JobOpDetail(Resource):
         job_open.update_date = datetime.now()
 
         db.session.commit()
+        db.session.close()
+
         return jsonify({
             "code": 1,
             "msg": "수정하기완료",
@@ -210,6 +218,8 @@ class JobOpDetail(Resource):
         job_open = JobOpen.query.get_or_404(id)
         db.session.delete(job_open)
         db.session.commit()
+        db.session.close()
+
         return jsonify({
             "code" : 1,
             "msg" : "삭제하기완료",
@@ -243,6 +253,8 @@ class _JobHunt(Resource):
                            update_date=datetime.now(), user_name=request.json['username'])
         db.session.add(job_hunt)
         db.session.commit()
+        db.session.close()
+
         return jsonify({
             "code": 1,
             "msg": "글쓰기완료",
@@ -291,6 +303,8 @@ class JobHuntDetail(Resource):
         job_hunt.update_date = datetime.now()
 
         db.session.commit()
+        db.session.close()
+
         return jsonify({
             "code": 1,
             "msg": "수정하기완료",
@@ -315,6 +329,8 @@ class JobHuntDetail(Resource):
         job_hunt = JobHunt.query.get_or_404(id)
         db.session.delete(job_hunt)
         db.session.commit()
+        db.session.close()
+
         return jsonify({
             "code" : 1,
             "msg" : "삭제하기완료",
