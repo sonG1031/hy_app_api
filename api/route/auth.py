@@ -29,7 +29,7 @@ class Signup(Resource):
 
             db.session.add(user)
             db.session.commit()
-            db.session.close()
+            # db.session.close()
             return jsonify({
                 'code': 1,
                 'msg' : "회원가입 성공!",
